@@ -1,0 +1,42 @@
+﻿name: iOS Simulator
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v4
+
+      - name: Version de Xcode
+        run: xcodebuild -version
+
+      - name: Compilar para simulador
+        run: |
+          xcodebuild \
+            -project MiMapa.xcodeproj \
+            -scheme MiMapa \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Empaquetar la app en ZIP
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator
+          ditto -c -k --sequesterRsrc --keepParent MiMapa.app "$GITHUB_WORKSPACE/MiMapa-Simulator.zip"
+
+      - name: Guardar el ZIP como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiMapa-Simulator
+          path: MiMapa-Simulator.zip
+          retention-days: 7
