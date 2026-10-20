@@ -35,7 +35,7 @@ struct ContentView: View {
         Lugar(nombre: "Centro Histórico",
               coordenada: CLLocationCoordinate2D(latitude: 19.8463, longitude: -90.5372)),
         Lugar(nombre: "Puerta de Mar",
-              coordenada: CLLocationCoordinate2D(latitude: 19.8476, longitude: -90.5388)),
+              coordenada: CLLocationCoordinate2D(latitude: 19.8458048, longitude: -90.5384558)),
         Lugar(nombre: "Puerta de Tierra",
               coordenada: CLLocationCoordinate2D(latitude: 19.8413932, longitude: -90.5360358)),
         Lugar(nombre: "Malecón",
